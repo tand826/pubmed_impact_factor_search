@@ -1,0 +1,87 @@
+body {
+  background-color: #3ba03a;
+  color: white;
+  width: 300px;
+}
+
+.title {
+  background-color: #d3d3d3;
+  border-radius: 4px;
+  border: 2px solid #696969;
+  color: black;
+  font-size: 15px;
+  margin: 0 1px 10px 1px;
+  display: inline-block;
+  padding: 4px;
+}
+
+.toSetting {
+  margin: 0 5px 0 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.toSetting img {
+  width: 15px;
+}
+
+.toHome {
+  width: 15px;
+  margin: 0 5px 0 5px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.toHome img {
+  width: 15px;
+}
+
+.sliderName {
+  margin-left: 15px;
+  width: 80px;
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: inline-block;
+}
+
+.sliderBlock {
+  margin: 10px 0 10px 0;
+}
+
+.slider {
+  width: 130px;
+  text-align: center;
+}
+
+.score {
+  display: inline-block;
+}
+
+.button {
+  text-align: right;
+}
+
+.selectUpload {
+  display: none;
+}
+
+.trashIcon {
+  width: 15px;
+  cursor: pointer;
+}
+
+.uploadIcon {
+  width: 15px;
+  cursor: pointer;
+}
+
+.checkboxIcon {
+  width: 15px;
+  cursor: pointer;
+}

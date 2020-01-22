@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "author": "Takumi Ando",
+    "name": "PubMed Impact Factor Search",
+    "description": "Add search words at PubMed search box.",
+    "version": "1.0",
+    "icons": {
+        "32": "icons/icon_32.png",
+        "48": "icons/icon_48.png",
+        "128": "icons/icon_128.png"
+    },
+    "content_scripts": [{
+        "matches": ["https://www.ncbi.nlm.nih.gov/pubmed/*"],
+        "js": ["jquery-3.4.1.min.js", "contentscript.js"]
+    }],
+    "browser_action": {
+        "default_icon": "icons/icon_32.png",
+        "default_title": "",
+        "default_popup": "popup.html"
+    },
+    "permissions": ["storage"],
+    "homepage_url": "https://github.com/tand826/pubmed_impact_factor_search"
+}
