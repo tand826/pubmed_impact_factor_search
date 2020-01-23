@@ -11,7 +11,11 @@ $(function(){
 	})
 
 	$("#maxScoreSlider").on("input", function(){
-		$("#maxScore").val(this.value)
+		var score = this.value
+		if (score === "100") {
+			score = 1000
+		}
+		$("#maxScore").val(score)
 	})
 
 	$(".toSetting").on("click", function(){
