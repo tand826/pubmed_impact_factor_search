@@ -113,6 +113,9 @@ function getAdditionalQuery(min, max) {
 			}
 		}
 		var additionalQuery = additionalQueries.join(" OR ")
+		var message = "Added query for " + additionalQueries.length + " journals"
+		// alert()
+		$(".resultQueryMessage").text(message)
 		popup(additionalQuery)
 	})
 }
