@@ -3,10 +3,15 @@ Add search words of journals at PubMed which has the impact factors you specifie
 
 # Installation
 
-(1) Clone this directory
+(1) Clone this directory OR Download as ZIP file
 ```bash
 git clone https://github.com/tand826/pubmed_impact_factor_search
 ```
+
+```
+# OR download from the button in the right top of this page
+```
+
 (2) Access "chrome://extensions"
 
 (3) From "LOAD UNPACKED", select the cloned "pubmed_impact_factor_search" directory
