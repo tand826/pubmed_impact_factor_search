@@ -34,15 +34,7 @@ $(function(){
 		var year = this.parentElement.getAttribute("class").replace("data", "")
 		fileReader.readAsText(file)
 		fileReader.onload = function(){
-			/*
-			results = Array()
-			lines = fileReader.result.replace(/\r?\n/g, "¥n").split("¥n")
-			for (var i=0;i<lines.length;++i) {
-				results[i] = lines[i].split(",")
-			}
-			*/
 			var results = $.csv.toArrays(fileReader.result)
-			// save to storage
 			var journalData = {}
 			journalData[year] = results
 			chrome.storage.local.set(journalData, function(){
@@ -110,7 +102,7 @@ function getAdditionalQuery(min, max) {
 			if (impactFactor >= min && impactFactor <= max) {
 				var ISSN = sheet[i][columnNumberISSN]
 				console.log(ISSN)
-				additionalQueries.push(ISSN + '[Journal]')
+				additionalQueries.push(ISSN + '[JOUR]')
 			} else if (impactFactor < min) {
 				console.log(min + " > " + impactFactor)
 				break
