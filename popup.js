@@ -1,5 +1,5 @@
 $(function(){
-	$("#addWordButton").on("click", function(){
+	$("#checkButton").on("click", function(){
 		var minScore = Number($("#minScore").val())
 		var maxScore = Number($("#maxScore").val())
 		validateScores(minScore, maxScore)
@@ -91,30 +91,64 @@ function validateScores(min, max) {
 
 function getAdditionalQuery(min, max) {
 	var year = $("input[name='year']:checked").val()
-	var additionalQueries = Array()
+	$(".journalSelect").empty()
 	chrome.storage.local.get(year, function(res){
 		var sheet = res[year]
 		var columns = sheet[1]
 		var columnNumberISSN = columns.indexOf("ISSN")
 		var columnNumberImpactFactor = columns.indexOf("Journal Impact Factor")
+		var columnNumberJournalTitle = columns.indexOf("Full Journal Title")
 		for (var i=2; i<sheet.length; i++){
 			var impactFactor = Number(sheet[i][columnNumberImpactFactor])
 			if (impactFactor >= min && impactFactor <= max) {
 				var ISSN = sheet[i][columnNumberISSN]
-				console.log(ISSN)
-				additionalQueries.push(ISSN + '[JOUR]')
+				var row = $("<div></div>", {addClass: "selectRow"})
+				var checkBox = $("<input>", {addClass: "rowCheckBox", type: "checkbox"})
+				checkBox.prop('checked', true);
+				var journalTitle = $("<div></div>", {addClass: "journalTitle"})
+				journalTitle.text(sheet[i][columnNumberJournalTitle])
+				var journalImpactFactor = $("<div></div>", {addClass: "journalImpactFactor"})
+				journalImpactFactor.text(sheet[i][columnNumberImpactFactor])
+				var journalISSN = $("<div></div>", {addClass: "journalISSN"})
+				journalISSN.text(ISSN)
+				row.append(checkBox)
+				row.append(journalImpactFactor)
+				row.append(journalISSN)
+				row.append(journalTitle)
+				$(".journalSelect").append(row)
+
 			} else if (impactFactor < min) {
 				console.log(min + " > " + impactFactor)
 				break
 			}
 		}
-		var additionalQuery = additionalQueries.join(" OR ")
-		var message = "Added query for " + additionalQueries.length + " journals"
-		// alert()
-		$(".resultQueryMessage").text(message)
-		popup(additionalQuery)
+
+		var addButtonDiv = $("<div></div>", {addClass: "button"})
+		var addButton = $("<button></button>", {addClass: "addQueryButton"})
+		addButton.text("Add")
+		addButtonDiv.append(addButton)
+		$(".journalSelect").append(addButtonDiv)
+
+		$(".addQueryButton").on("click", function(){
+			addQuery()
+		})
 	})
 }
+
+function addQuery() {
+	var additionalQueries = Array()
+	var selectRows = $(".selectRow")
+	for (var i=0; i<selectRows.length; i++){
+		if ($(".selectRow .rowCheckBox")[i].checked ) {
+			additionalQueries.push($(".selectRow .journalISSN")[i].innerText)
+		}
+	}
+	var additionalQuery = additionalQueries.join(" OR ")
+	var message = "Added query for " + additionalQueries.length + " journals"
+	$(".resultQuery").text(message)
+	popup(additionalQuery)
+}
+
 
 function popup(query) {
   console.log(query)

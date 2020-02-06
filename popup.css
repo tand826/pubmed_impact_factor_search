@@ -1,7 +1,7 @@
 body {
   background-color: #3ba03a;
   color: white;
-  width: 300px;
+  width: 400px;
 }
 
 .title {
@@ -84,4 +84,23 @@ body {
 .checkboxIcon {
   width: 15px;
   cursor: pointer;
+}
+
+.selectRow {
+  display: flex;
+  vertical-align: middle;
+}
+
+.journalImpactFactor {
+  margin: 0 5px;
+  width: 40px;
+}
+
+.journalISSN {
+  margin: 0 5px 0 0;
+  width: 70px;
+}
+
+.addQueryButton {
+  text-align: right;
 }
