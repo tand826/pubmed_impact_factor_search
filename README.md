@@ -1,4 +1,9 @@
 # PubMed Impact Factor Search
+![Chrome Web Store](https://img.shields.io/chrome-web-store/users/:amhcplabblldkpggfncgnemdbpafbfog.svg)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/:amhcplabblldkpggfncgnemdbpafbfog.svg)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/:amhcplabblldkpggfncgnemdbpafbfog.svg)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/:amhcplabblldkpggfncgnemdbpafbfog.svg)
+
 Add search words of journals at PubMed which has the impact factors you specified
 
 # Installation
