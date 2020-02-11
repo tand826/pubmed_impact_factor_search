@@ -3,21 +3,9 @@ Add search words of journals at PubMed which has the impact factors you specifie
 
 # Installation
 
-(1) Clone this directory OR Download as ZIP file
-```bash
-git clone https://github.com/tand826/pubmed_impact_factor_search
-```
+(1) Install from [Chrome Webstore](https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog?hl=ja)
 
-```
-# OR download from the button in the right top of this page
-```
-
-(2) Access "chrome://extensions"
-
-(3) From "LOAD UNPACKED", select the cloned "pubmed_impact_factor_search" directory
-<img src="https://developer.chrome.com/static/images/get_started/load_extension.png">
-
-(4) <a href="https://jcr.clarivate.com/JCRLandingPageAction.action">InCites Journal Citation Reports</a> # This may require your registered accout.
+(2) <a href="https://jcr.clarivate.com/JCRLandingPageAction.action">InCites Journal Citation Reports</a> # This may require your registered accout.
 
  	(a) "Browse by Journal"
 
@@ -27,7 +15,7 @@ git clone https://github.com/tand826/pubmed_impact_factor_search
 
 	(d) Download CSV
 
-(5) PubMed Impact Factor Search
+(3) at PubMed Impact Factor Search
 
 	(a) Settings
 
