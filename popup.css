@@ -103,7 +103,7 @@ body {
 }
 
 hr {
-  margin: 20px 0
+  margin: 20px 0;
 }
 
 .selectRow {
@@ -125,7 +125,7 @@ hr {
 
 .journalTitle {
   width: 227.25px;
-  text-align: left
+  text-align: left;
 }
 
 .addQueryButton {
