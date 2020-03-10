@@ -45,11 +45,10 @@ body {
 }
 
 .mainTab {
-  padding-bottom: 10px;
+  padding: 0 15px 15px 15px;
 }
 
 .sliderName {
-  margin-left: 12px;
   width: 80px;
   display: inline-block;
 }
@@ -67,7 +66,7 @@ body {
 }
 
 .slider {
-  width: 130px;
+  width: 150px;
   text-align: center;
 }
 
@@ -80,7 +79,7 @@ body {
 }
 
 .button {
-  width: 395px;
+  width: 370px;
   text-align: right;
 }
 
@@ -103,6 +102,10 @@ body {
   cursor: pointer;
 }
 
+hr {
+  margin: 20px 0
+}
+
 .selectRow {
   display: flex;
   vertical-align: middle;
@@ -110,7 +113,7 @@ body {
 
 .journalImpactFactor {
   text-align: left;
-  margin: 0 5px;
+  margin: 0 5px 0 5px;
   width: 40px;
 }
 
@@ -121,7 +124,7 @@ body {
 }
 
 .journalTitle {
-  width: 257.25px;
+  width: 227.25px;
   text-align: left
 }
 
