@@ -1,43 +1,55 @@
 body {
-  background-color: #3ba03a;
-  color: white;
+  background-color: #ffffff;
+  color: black;
   width: 400px;
+  margin: 0;
+  text-align: center;
 }
 
 .title {
   background-color: #d3d3d3;
-  border-radius: 4px;
-  border: 2px solid #696969;
   color: black;
-  font-size: 15px;
-  margin: 0 1px 10px 1px;
+  font-size: 12px;
   display: inline-block;
-  padding: 4px;
+  padding: 1px;
+  width: 100%;
+  text-align: center;
 }
 
-.toSetting {
-  margin: 0 5px 0 5px;
-  display: inline-block;
-  cursor: pointer;
+.navigation {
+  display: flex;
+  text-align: center;
 }
 
-.toSetting img {
-  width: 15px;
-}
-
-.toHome {
-  width: 15px;
-  margin: 0 5px 0 5px;
+.tab {
+  width: 200px;
   display: inline-block;
   cursor: pointer;
+  font-size: 11px;
+  padding: 2px 0;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
-.toHome img {
-  width: 15px;
+.tab:hover {
+  background-color: palegreen;
+}
+
+.tab.active {
+  background-color: lightcyan;
+}
+
+.tab img {
+  margin: 0 3px;
+  width: 12px;
+}
+
+.mainTab {
+  padding-bottom: 10px;
 }
 
 .sliderName {
-  margin-left: 15px;
+  margin-left: 12px;
   width: 80px;
   display: inline-block;
 }
@@ -51,7 +63,7 @@ body {
 }
 
 .sliderBlock {
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
 }
 
 .slider {
@@ -59,11 +71,16 @@ body {
   text-align: center;
 }
 
+.lists {
+  margin: 10px 0;
+}
+
 .score {
   display: inline-block;
 }
 
 .button {
+  width: 395px;
   text-align: right;
 }
 
@@ -92,13 +109,20 @@ body {
 }
 
 .journalImpactFactor {
+  text-align: left;
   margin: 0 5px;
   width: 40px;
 }
 
 .journalISSN {
+  text-align: left;
   margin: 0 5px 0 0;
   width: 70px;
+}
+
+.journalTitle {
+  width: 257.25px;
+  text-align: left
 }
 
 .addQueryButton {

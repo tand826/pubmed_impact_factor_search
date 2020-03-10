@@ -19,26 +19,29 @@ $(function(){
 	})
 
 	$(".toSetting").on("click", function(){
-		$(".mainTab").removeClass("visible").addClass("hidden")
-		$(".settingTab").removeClass("hidden").addClass("visible")
+		$(".mainTab").hide()
+		$(".settingTab").show()
+		$(this).addClass("active")
+		$(".toHome").removeClass("active")
 	})
 
 	$(".toHome").on("click", function(){
-		$(".settingTab").removeClass("visible").addClass("hidden")
-		$(".mainTab").removeClass("hidden").addClass("visible")
+		$(".settingTab").hide()
+		$(".mainTab").show()
+		$(this).addClass("active")
+		$(".toSetting").removeClass("active")
 	})
 
 	$(".selectUpload").on("change", function(){
 		var fileReader = new FileReader()
 		var file = this.files[0]
-		var year = this.parentElement.getAttribute("class").replace("data", "")
+		var year = this.parentElement.getAttribute("class").replace("data", "").split(" ")[1]
 		fileReader.readAsText(file)
 		fileReader.onload = function(){
 			var results = $.csv.toArrays(fileReader.result)
 			var journalData = {}
 			journalData[year] = results
 			chrome.storage.local.set(journalData, function(){
-				console.log("saved")
 				$(".checkboxIcon"+year).addClass("visible")
 				$(".uploadIcon"+year).addClass("hidden")
 			})
@@ -49,7 +52,6 @@ $(function(){
 	$(".trashIcon").on("click", function(){
 		year = this.parentElement.getAttribute("class").replace("data", "")
 		chrome.storage.local.remove(year, function(){
-			console.log("removed data of "+year)
 			$(".uploadIcon"+year).addClass("visible")
 			$(".checkboxIcon"+year).addClass("hidden")
 		})
@@ -125,8 +127,10 @@ function getAdditionalQuery(min, max) {
 
 		var addButtonDiv = $("<div></div>", {addClass: "button"})
 		var addButton = $("<button></button>", {addClass: "addQueryButton"})
+		var resultQuery = $("<div></div>", {addClass: "resultQuery"})
 		addButton.text("Add")
 		addButtonDiv.append(addButton)
+		$(".journalSelect").append(resultQuery)
 		$(".journalSelect").append(addButtonDiv)
 
 		$(".addQueryButton").on("click", function(){

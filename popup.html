@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="jquery-3.4.1.min.js"></script>
-    <script src="jquery.csv.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.8/jquery.csv.min.js"></script>
     <script src="popup.js"></script>
     <link rel="stylesheet" href="popup.css">
 
@@ -14,8 +14,11 @@
   <body>
     <div class="header">
       <div class="title">PubMed Impact Factor Search</div>
-      <div class="toHome"><img src="icons/home.png"></div>
-      <div class="toSetting"><img src="icons/gear.png"></div>
+    </div>
+
+    <div class="navigation">
+      <div class="tab toHome active"><img src="icons/home.png">HOME</div>
+      <div class="tab toSetting"><img src="icons/gear.png">SETTINGS</div>
     </div>
 
     <div class="mainTab visible">
@@ -30,29 +33,25 @@
       <div class="button">
         <button id="checkButton">Check</button>
       </div>
-      <div class="journalSelect">
-      </div>
-      <div class="resultQuery">
-      </div>
+      <div class="journalSelect"></div>
     </div>
 
     <div class="settingTab hidden">
       <div class="setting">
-        <div>Setting</div>
-        <div class="webofscienceRankingBox">
-          <div class="data2018">
+        <div class="rankingBox">
+          <div class="lists data2018">
             <input type="radio" name="year" id="ranking2018" value="2018"/>
             <label for="ranking2018">2018</label>
-            <label for="upload2018"><img src="icons/upload.png" class="uploadIcon uploadIcon2018"></label>
+            <label for="upload2018"><img src="icons/upload.svg" class="uploadIcon uploadIcon2018"></label>
             <label for="upload2018"><img src="icons/checkbox.png" class="checkboxIcon checkboxIcon2018"></label>
             <input type="file" name="upload2018" id="upload2018" class="selectUpload upload2018"/>
             <img src="icons/trash.png" class="trashIcon trash2018">
           </div>
 
-          <div class="data2017">
+          <div class="lists data2017">
             <input type="radio" name="year" id="ranking2017" value="2017"/>
             <label for="ranking2017">2017</label>
-            <label for="upload2017"><img src="icons/upload.png" class="uploadIcon uploadIcon2017"></label>
+            <label for="upload2017"><img src="icons/upload.svg" class="uploadIcon uploadIcon2017"></label>
             <label for="upload2017"><img src="icons/checkbox.png" class="checkboxIcon checkboxIcon2017"></label>
             <input type="file" name="upload2017" class="selectUpload upload2017"/>
             <img src="icons/trash.png" class="trashIcon trash2017">
