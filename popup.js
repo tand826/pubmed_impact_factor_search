@@ -133,9 +133,12 @@ function getAdditionalQuery(min, max) {
     var addButtonDiv = $("<div></div>", { addClass: "button" });
     var addButton = $("<button></button>", { addClass: "addQueryButton" });
     var resultQuery = $("<div></div>", { addClass: "resultQuery" });
+    var journalsTitle = $("<div></div>", { addClass: "journalsTitle" }).text(
+      "Journals"
+    );
     addButton.text("Add");
     addButtonDiv.append(addButton);
-    $(".journalSelect").prepend($("<hr>"));
+    $(".journalSelect").prepend(journalsTitle);
     $(".journalSelect").append(resultQuery);
     $(".journalSelect").append(addButtonDiv);
 
