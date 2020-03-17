@@ -1,59 +1,60 @@
-$(function() {
-  $("#checkButton").on("click", function() {
-    var minScore = Number($("#minScore").val());
-    var maxScore = Number($("#maxScore").val());
+$(() => {
+  $("#checkButton").on("click", () => {
+    const minScore = Number($("#minScore").val());
+    const maxScore = Number($("#maxScore").val());
     validateScores(minScore, maxScore);
     getAdditionalQuery(minScore, maxScore);
   });
 
-  $("#minScoreSlider").on("input", function() {
-    $("#minScore").val(this.value);
+  $("#minScoreSlider").on("input", e => {
+    $("#minScore").val(e.currentTarget.value);
   });
 
-  $("#maxScoreSlider").on("input", function() {
-    var score = this.value;
+  $("#maxScoreSlider").on("input", e => {
+    const score = e.currentTarget.value;
     if (score === "100") {
       score = 1000;
     }
     $("#maxScore").val(score);
   });
 
-  $(".toSetting").on("click", function() {
+  $(".toSetting").on("click", () => {
     $(".mainTab").hide();
     $(".settingTab").show();
     $(this).addClass("active");
     $(".toHome").removeClass("active");
   });
 
-  $(".toHome").on("click", function() {
+  $(".toHome").on("click", () => {
     $(".settingTab").hide();
     $(".mainTab").show();
     $(this).addClass("active");
     $(".toSetting").removeClass("active");
   });
 
-  $(".selectUpload").on("change", function() {
-    var fileReader = new FileReader();
-    var file = this.files[0];
-    var year = this.parentElement
+  $(".selectUpload").on("change", e => {
+    console.log(e.currentTarget);
+    let fileReader = new FileReader();
+    let file = e.currentTarget.files[0];
+    const year = e.currentTarget.parentElement
       .getAttribute("class")
       .replace("data", "")
       .split(" ")[1];
     fileReader.readAsText(file);
-    fileReader.onload = function() {
-      var results = $.csv.toArrays(fileReader.result);
-      var journalData = {};
+    fileReader.onload = () => {
+      const results = $.csv.toArrays(fileReader.result);
+      let journalData = {};
       journalData[year] = results;
-      chrome.storage.local.set(journalData, function() {
+      chrome.storage.local.set(journalData, () => {
         $(".checkboxIcon" + year).addClass("visible");
         $(".uploadIcon" + year).addClass("hidden");
       });
     };
   });
 
-  $(".trashIcon").on("click", function() {
+  $(".trashIcon").on("click", () => {
     year = this.parentElement.getAttribute("class").replace("data", "");
-    chrome.storage.local.remove(year, function() {
+    chrome.storage.local.remove(year, () => {
       $(".uploadIcon" + year).addClass("visible");
       $(".checkboxIcon" + year).addClass("hidden");
     });
@@ -62,11 +63,11 @@ $(function() {
   dataCheck();
 });
 
-function dataCheck() {
-  var dataExists = [];
-  var years = ["2018", "2017"];
+const dataCheck = () => {
+  let dataExists = [];
+  const years = ["2018", "2017"];
   years.forEach(year =>
-    chrome.storage.local.getBytesInUse(year, function(result) {
+    chrome.storage.local.getBytesInUse(year, result => {
       if (result) {
         $(".uploadIcon" + year).addClass("hidden");
         dataExists.push(year);
@@ -77,47 +78,47 @@ function dataCheck() {
   );
 
   years.forEach(year =>
-    chrome.storage.local.getBytesInUse(year, function(result) {
+    chrome.storage.local.getBytesInUse(year, result => {
       if (result) {
         $("#ranking" + year).prop("checked", true);
         return true;
       }
     })
   );
-}
+};
 
-function validateScores(min, max) {
+const validateScores = (min, max) => {
   if (min >= max) {
     alert("Your Min Score is larger than the Max Score!");
   }
-}
+};
 
-function getAdditionalQuery(min, max) {
-  var year = $("input[name='year']:checked").val();
+const getAdditionalQuery = (min, max) => {
+  const year = $("input[name='year']:checked").val();
   $(".journalSelect").empty();
-  chrome.storage.local.get(year, function(res) {
-    var sheet = res[year];
-    var columns = sheet[1];
-    var columnNumberISSN = columns.indexOf("ISSN");
-    var columnNumberImpactFactor = columns.indexOf("Journal Impact Factor");
-    var columnNumberJournalTitle = columns.indexOf("Full Journal Title");
-    for (var i = 2; i < sheet.length; i++) {
-      var impactFactor = Number(sheet[i][columnNumberImpactFactor]);
+  chrome.storage.local.get(year, res => {
+    const sheet = res[year];
+    const columns = sheet[1];
+    const columnNumberISSN = columns.indexOf("ISSN");
+    const columnNumberImpactFactor = columns.indexOf("Journal Impact Factor");
+    const columnNumberJournalTitle = columns.indexOf("Full Journal Title");
+    for (let i = 2; i < sheet.length; i++) {
+      let impactFactor = Number(sheet[i][columnNumberImpactFactor]);
       if (impactFactor >= min && impactFactor <= max) {
-        var ISSN = sheet[i][columnNumberISSN];
-        var row = $("<div></div>", { addClass: "selectRow" });
-        var checkBox = $("<input>", {
+        let ISSN = sheet[i][columnNumberISSN];
+        let row = $("<div></div>", { addClass: "selectRow" });
+        let checkBox = $("<input>", {
           addClass: "rowCheckBox",
           type: "checkbox"
         });
         checkBox.prop("checked", true);
-        var journalTitle = $("<div></div>", { addClass: "journalTitle" });
+        let journalTitle = $("<div></div>", { addClass: "journalTitle" });
         journalTitle.text(sheet[i][columnNumberJournalTitle]);
-        var journalImpactFactor = $("<div></div>", {
+        let journalImpactFactor = $("<div></div>", {
           addClass: "journalImpactFactor"
         });
         journalImpactFactor.text(sheet[i][columnNumberImpactFactor]);
-        var journalISSN = $("<div></div>", { addClass: "journalISSN" });
+        let journalISSN = $("<div></div>", { addClass: "journalISSN" });
         journalISSN.text(ISSN);
         row.append(checkBox);
         row.append(journalImpactFactor);
@@ -130,10 +131,10 @@ function getAdditionalQuery(min, max) {
       }
     }
 
-    var addButtonDiv = $("<div></div>", { addClass: "button" });
-    var addButton = $("<button></button>", { addClass: "addQueryButton" });
-    var resultQuery = $("<div></div>", { addClass: "resultQuery" });
-    var journalsTitle = $("<div></div>", { addClass: "journalsTitle" }).text(
+    const addButtonDiv = $("<div></div>", { addClass: "button" });
+    const addButton = $("<button></button>", { addClass: "addQueryButton" });
+    const resultQuery = $("<div></div>", { addClass: "resultQuery" });
+    const journalsTitle = $("<div></div>", { addClass: "journalsTitle" }).text(
       "Journals"
     );
     addButton.text("Add");
@@ -146,26 +147,26 @@ function getAdditionalQuery(min, max) {
       addQuery();
     });
   });
-}
+};
 
-function addQuery() {
-  var additionalQueries = Array();
-  var selectRows = $(".selectRow");
-  for (var i = 0; i < selectRows.length; i++) {
+const addQuery = () => {
+  let additionalQueries = Array();
+  const selectRows = $(".selectRow");
+  for (let i = 0; i < selectRows.length; i++) {
     if ($(".selectRow .rowCheckBox")[i].checked) {
       additionalQueries.push($(".selectRow .journalISSN")[i].innerText);
     }
   }
-  var additionalQuery = additionalQueries.join(" OR ");
-  var message = "Added query for " + additionalQueries.length + " journals";
+  const additionalQuery = additionalQueries.join(" OR ");
+  const message = "Added query for " + additionalQueries.length + " journals";
   $(".resultQuery").text(message);
   popup(additionalQuery);
-}
+};
 
-function popup(query) {
+const popup = query => {
   console.log(query);
-  chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
-    var activeTab = tabs[0];
+  chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+    const activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, { query: query });
   });
-}
+};
