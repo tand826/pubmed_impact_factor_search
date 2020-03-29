@@ -1,9 +1,9 @@
 # PubMed Impact Factor Search
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/users/:amhcplabblldkpggfncgnemdbpafbfog.svg)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/:amhcplabblldkpggfncgnemdbpafbfog.svg)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/:amhcplabblldkpggfncgnemdbpafbfog.svg)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/:amhcplabblldkpggfncgnemdbpafbfog.svg)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/users/amhcplabblldkpggfncgnemdbpafbfog)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/amhcplabblldkpggfncgnemdbpafbfog)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/price/amhcplabblldkpggfncgnemdbpafbfog)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/amhcplabblldkpggfncgnemdbpafbfog)
 
 Add search words of journals at PubMed which has the impact factors you specified
 
@@ -13,7 +13,7 @@ Add search words of journals at PubMed which has the impact factors you specifie
 
 (2) <a href="https://jcr.clarivate.com/JCRLandingPageAction.action">InCites Journal Citation Reports</a> # This may require your registered accout.
 
-(a) "Browse by Journal"
+    (a) "Browse by Journal"
 
     (b) "Customize Indicators"
 
@@ -33,11 +33,14 @@ Add search words of journals at PubMed which has the impact factors you specifie
 
 # How To Use
 
-(1) Typed some keywords at <a href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a>.
+(1) Type some keywords at <a href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a>.
+
 ![pubmed](images/pubmed.png)
 
-(2) Slide the minimum and the maximum impact factor score.
-![slide](images/slide.png)
+(2) Slide the minimum and the maximum impact factor score and click "Check" to see the journals.
+
+![journals](images/journals.png)
 
 (3) Click "Add" to add the query
+
 ![added](images/added.png)
