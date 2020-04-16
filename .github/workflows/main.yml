@@ -6,7 +6,7 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,18 +17,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: Passiverecords/chrome-extension-upload-action@1.4.1
-      with:
-        # Auth refresh token
-        refresh-token: ${{ secret.refresh-token }}
-        # Extension application target id
-        app-id: ${{ secret.app-id }}
-        # Token client id
-        client-id: ${{ secret.client-id }}
-        # Token client secret
-        client-secret: ${{ secret.client-secret }}
-        # Name of zipped target upload file
-        file-name: pubmed_impact_factor_search.zip
-        # True Or False to publish after upload
-        publish: True
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: Passiverecords/chrome-extension-upload-action@1.4.1
+        with:
+          # Auth refresh token
+          refresh-token: ${{ secret.REFRESH_TOKEN }}
+          # Extension application target id
+          app-id: ${{ secret.APP_ID }}
+          # Token client id
+          client-id: ${{ secret.CLIENT_ID }}
+          # Token client secret
+          client-secret: ${{ secret.CLIENT_SECRET }}
+          # Name of zipped target upload file
+          file-name: pubmed_impact_factor_search.zip
+          # True Or False to publish after upload
+          publish: True
