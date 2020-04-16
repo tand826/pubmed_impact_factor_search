@@ -136,3 +136,15 @@ hr {
 .addQueryButton {
   text-align: right;
 }
+
+.help {
+  display: block;
+}
+
+.hpicon {
+  text-align: center;
+}
+
+.githubIcon {
+  width: 16px;
+}

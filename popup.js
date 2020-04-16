@@ -6,11 +6,11 @@ $(() => {
     getAdditionalQuery(minScore, maxScore);
   });
 
-  $("#minScoreSlider").on("input", e => {
+  $("#minScoreSlider").on("input", (e) => {
     $("#minScore").val(e.currentTarget.value);
   });
 
-  $("#maxScoreSlider").on("input", e => {
+  $("#maxScoreSlider").on("input", (e) => {
     const score = e.currentTarget.value;
     if (score === "100") {
       score = 1000;
@@ -32,7 +32,7 @@ $(() => {
     $(".toSetting").removeClass("active");
   });
 
-  $(".selectUpload").on("change", e => {
+  $(".selectUpload").on("change", (e) => {
     console.log(e.currentTarget);
     let fileReader = new FileReader();
     let file = e.currentTarget.files[0];
@@ -60,14 +60,23 @@ $(() => {
     });
   });
 
+  $.getJSON("manifest.json", (data) => {
+    $.each(data, (k, v) => {
+      if (k == "version") {
+        version = v;
+        $(".version_p").text("version" + version);
+      }
+    });
+  });
+
   dataCheck();
 });
 
 const dataCheck = () => {
   let dataExists = [];
   const years = ["2018", "2017"];
-  years.forEach(year =>
-    chrome.storage.local.getBytesInUse(year, result => {
+  years.forEach((year) =>
+    chrome.storage.local.getBytesInUse(year, (result) => {
       if (result) {
         $(".uploadIcon" + year).addClass("hidden");
         dataExists.push(year);
@@ -77,8 +86,8 @@ const dataCheck = () => {
     })
   );
 
-  years.forEach(year =>
-    chrome.storage.local.getBytesInUse(year, result => {
+  years.forEach((year) =>
+    chrome.storage.local.getBytesInUse(year, (result) => {
       if (result) {
         $("#ranking" + year).prop("checked", true);
         return true;
@@ -96,7 +105,7 @@ const validateScores = (min, max) => {
 const getAdditionalQuery = (min, max) => {
   const year = $("input[name='year']:checked").val();
   $(".journalSelect").empty();
-  chrome.storage.local.get(year, res => {
+  chrome.storage.local.get(year, (res) => {
     const sheet = res[year];
     const columns = sheet[1];
     const columnNumberISSN = columns.indexOf("ISSN");
@@ -109,13 +118,13 @@ const getAdditionalQuery = (min, max) => {
         let row = $("<div></div>", { addClass: "selectRow" });
         let checkBox = $("<input>", {
           addClass: "rowCheckBox",
-          type: "checkbox"
+          type: "checkbox",
         });
         checkBox.prop("checked", true);
         let journalTitle = $("<div></div>", { addClass: "journalTitle" });
         journalTitle.text(sheet[i][columnNumberJournalTitle]);
         let journalImpactFactor = $("<div></div>", {
-          addClass: "journalImpactFactor"
+          addClass: "journalImpactFactor",
         });
         journalImpactFactor.text(sheet[i][columnNumberImpactFactor]);
         let journalISSN = $("<div></div>", { addClass: "journalISSN" });
@@ -143,7 +152,7 @@ const getAdditionalQuery = (min, max) => {
     $(".journalSelect").append(resultQuery);
     $(".journalSelect").append(addButtonDiv);
 
-    $(".addQueryButton").on("click", function() {
+    $(".addQueryButton").on("click", function () {
       addQuery();
     });
   });
@@ -163,9 +172,9 @@ const addQuery = () => {
   popup(additionalQuery);
 };
 
-const popup = query => {
+const popup = (query) => {
   console.log(query);
-  chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
     const activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, { query: query });
   });
