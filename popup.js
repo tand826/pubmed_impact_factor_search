@@ -12,7 +12,7 @@ $(() => {
 
   $("#maxScoreSlider").on("input", (e) => {
     const score = e.currentTarget.value;
-    if (score === "100") {
+    if (Number(score) > 100) {
       score = 1000;
     }
     $("#maxScore").val(score);
