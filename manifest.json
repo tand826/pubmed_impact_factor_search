@@ -3,7 +3,7 @@
   "author": "Takumi Ando",
   "name": "PubMed Impact Factor Search",
   "description": "Add search words at PubMed search box.",
-  "version": "2.2",
+  "version": "3.0",
   "icons": {
     "32": "icons/icon_32.png",
     "48": "icons/icon_48.png",

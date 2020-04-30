@@ -141,6 +141,8 @@ const getAdditionalQuery = (min, max) => {
     }
 
     const addButtonDiv = $("<div></div>", { addClass: "button" });
+    const searchBox = $("<input>", {addClass: "searchBox"})
+    searchBox.on("keyup", searchWithWord)
     const addButton = $("<button></button>", { addClass: "addQueryButton" });
     const resultQuery = $("<div></div>", { addClass: "resultQuery" });
     const journalsTitle = $("<div></div>", { addClass: "journalsTitle" }).text(
@@ -148,6 +150,7 @@ const getAdditionalQuery = (min, max) => {
     );
     addButton.text("Add");
     addButtonDiv.append(addButton);
+    $(".journalSelect").prepend(searchBox)
     $(".journalSelect").prepend(journalsTitle);
     $(".journalSelect").append(resultQuery);
     $(".journalSelect").append(addButtonDiv);
@@ -157,6 +160,19 @@ const getAdditionalQuery = (min, max) => {
     });
   });
 };
+
+const searchWithWord = () => {
+  const word = $(".searchBox")[0].value
+  const reg = new RegExp(word)
+  const rows = $(".selectRow")
+  for (let i=0; i<rows.length; i++) {
+    if ($(rows[i]).children(".journalTitle").text().toLowerCase().search(reg) == -1) {
+      $(rows[i]).hide()
+    } else {
+      $(rows[i]).show()
+    }
+  }
+}
 
 const addQuery = () => {
   let additionalQueries = Array();
