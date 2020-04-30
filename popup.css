@@ -107,6 +107,7 @@ hr {
 }
 
 .journalsTitle {
+  display: none;
   margin: 20px -15px;
   background-color: #d3d3d3;
 }
@@ -131,6 +132,14 @@ hr {
 .journalTitle {
   width: 227.25px;
   text-align: left;
+}
+
+.searchBox {
+  display: none
+}
+
+.queryButton {
+  display: none
 }
 
 .addQueryButton {

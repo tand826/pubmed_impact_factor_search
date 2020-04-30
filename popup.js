@@ -11,7 +11,7 @@ $(() => {
   });
 
   $("#maxScoreSlider").on("input", (e) => {
-    const score = e.currentTarget.value;
+    let score = e.currentTarget.value;
     if (Number(score) > 100) {
       score = 1000;
     }
@@ -104,7 +104,7 @@ const validateScores = (min, max) => {
 
 const getAdditionalQuery = (min, max) => {
   const year = $("input[name='year']:checked").val();
-  $(".journalSelect").empty();
+  $(".selectRow").remove();
   chrome.storage.local.get(year, (res) => {
     const sheet = res[year];
     const columns = sheet[1];
@@ -139,21 +139,12 @@ const getAdditionalQuery = (min, max) => {
         break;
       }
     }
-
-    const addButtonDiv = $("<div></div>", { addClass: "button" });
-    const searchBox = $("<input>", {addClass: "searchBox"})
-    searchBox.on("keyup", searchWithWord)
-    const addButton = $("<button></button>", { addClass: "addQueryButton" });
+    $(".journalsTitle").css("display", "block")
+    $(".searchBox").css("display", "block")
+    $(".searchBox").on("keyup", searchWithWord)
+    $(".queryButton").css("display", "block")
     const resultQuery = $("<div></div>", { addClass: "resultQuery" });
-    const journalsTitle = $("<div></div>", { addClass: "journalsTitle" }).text(
-      "Journals"
-    );
-    addButton.text("Add");
-    addButtonDiv.append(addButton);
-    $(".journalSelect").prepend(searchBox)
-    $(".journalSelect").prepend(journalsTitle);
     $(".journalSelect").append(resultQuery);
-    $(".journalSelect").append(addButtonDiv);
 
     $(".addQueryButton").on("click", function () {
       addQuery();
@@ -178,7 +169,7 @@ const addQuery = () => {
   let additionalQueries = Array();
   const selectRows = $(".selectRow");
   for (let i = 0; i < selectRows.length; i++) {
-    if ($(".selectRow .rowCheckBox")[i].checked) {
+    if ($(".selectRow .rowCheckBox")[i].checked && $($(".selectRow")[i]).is(":visible")) {
       additionalQueries.push($(".selectRow .journalISSN")[i].innerText);
     }
   }
