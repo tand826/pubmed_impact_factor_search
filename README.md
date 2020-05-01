@@ -41,6 +41,14 @@ Add search words of journals at PubMed which has the impact factors you specifie
 
 ![journals](images/journals.png)
 
-(3) Click "Add" to add the query
+(3) Type some keywords to filter the results.
+
+![filter](images/search.png)
+
+(4) Click "Add" to add the query.
 
 ![added](images/added.png)
+
+(5) Or just click a query from the history.
+
+![history](images/history.png)

@@ -69,7 +69,16 @@ $(() => {
     });
   });
 
+  chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace == "local") {
+      if (changes.history) {
+        showHistory()
+      }
+    }
+  })
+
   dataCheck();
+  showHistory()
 });
 
 const dataCheck = () => {
@@ -101,6 +110,53 @@ const validateScores = (min, max) => {
     alert("Your Min Score is larger than the Max Score!");
   }
 };
+
+const getHistory = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get((store) => {
+      if (store.history) {
+        resolve(store.history)
+      } else {
+        resolve(Array())
+      }
+    });
+  })
+}
+
+const setHistory = async (newQuery) => {
+  let history = await getHistory()
+  history.push(newQuery)
+  if (history.length > 5) {
+    history.shift()
+  }
+  chrome.storage.local.set({history: history}, () => {})
+}
+
+const showHistory = async () => {
+  let history = await getHistory()
+  $(".historyLine").remove()
+  for (let i=0; i<history.length; i++) {
+    let historyLine = $("<div></div>", { addClass: "historyLine"})
+
+    let historyQuery = $("<div></div>", { addClass: "historyQuery"})
+    historyQuery.text(history[i].query)
+    historyLine.append(historyQuery)
+
+    let historyDate = $("<div></div>", { addClass: "historyDate"})
+    let date = history[i].date
+    historyDate.text(`${date.year}.${date.month}.${date.date} ${date.hour}.${date.min}.${date.sec}`)
+    historyLine.append(historyDate)
+
+    let historyLength = $("<div></div>", { addClass: "historyLength"})
+    historyLength.text(`${history[i].length} Journals`)
+    historyLine.append(historyLength)
+
+    historyLine.on("click", () => {
+      popup(history[i].query)
+    })
+    $(".historyBlock").append(historyLine)
+  }
+}
 
 const getAdditionalQuery = (min, max) => {
   const year = $("input[name='year']:checked").val();
@@ -136,7 +192,7 @@ const getAdditionalQuery = (min, max) => {
         let journalImpactFactor = $("<div></div>", {
           addClass: "journalImpactFactor",
         });
-        journalImpactFactor.text(sheet[i][columnNumberImpactFactor]);
+        journalImpactFactor.text(Number(sheet[i][columnNumberImpactFactor]).toFixed(1));
         let journalISSN = $("<div></div>", { addClass: "journalISSN" });
         journalISSN.text(ISSN);
         row.append(holdBox)
@@ -154,6 +210,7 @@ const getAdditionalQuery = (min, max) => {
     $(".searchBox").css("display", "block")
     $(".searchBox").on("keyup", searchWithWord)
     $(".queryButton").css("display", "block")
+    $(".resultQuery").remove()
     const resultQuery = $("<div></div>", { addClass: "resultQuery" });
     $(".journalSelect").append(resultQuery);
 
@@ -187,9 +244,28 @@ const addQuery = () => {
     }
   }
   const additionalQuery = additionalQueries.join(" OR ");
+  const history = {
+    query: additionalQuery,
+    date: getDate(),
+    length: additionalQueries.length
+  }
+  setHistory(history)
   const message = "Added query for " + additionalQueries.length + " journals";
   $(".resultQuery").text(message);
   popup(additionalQuery);
+};
+
+const getDate = () => {
+  let now = new Date();
+  const date = {
+    year: now.getFullYear(),
+    month: now.getMonth() + 1,
+    date: now.getDate(),
+    hour: now.getHours(),
+    min: now.getMinutes(),
+    sec: now.getSeconds()
+  };
+  return date;
 };
 
 const popup = (query) => {

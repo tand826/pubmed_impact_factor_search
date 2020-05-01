@@ -27,7 +27,6 @@ body {
   cursor: pointer;
   font-size: 11px;
   padding: 2px 0;
-  border-radius: 6px;
 }
 
 .tab:hover {
@@ -126,7 +125,7 @@ hr {
 .journalImpactFactor {
   text-align: left;
   margin: 0 5px 0 5px;
-  width: 40px;
+  width: 25px;
 }
 
 .journalISSN {
@@ -154,14 +153,52 @@ hr {
   text-align: right;
 }
 
+.historyTitle {
+  margin: 20px -15px;
+  background-color: #d3d3d3;
+}
+
+.historyLine:hover {
+  cursor: pointer
+}
+
+.historyLine:nth-child(n+3) {
+  border-top: 1px solid lightgray;
+  margin: 5px 0;
+  padding-top: 10px
+}
+
+.historyQuery {
+  text-align: left;
+  width: 300px
+}
+
+.historyDate {
+  text-align: right;
+  font-size: 0.7rem;
+  color: lightgray
+}
+
+.historyLength {
+  text-align: right;
+  font-size: 0.7rem;
+  color: lightgray
+}
+
 .help {
   display: block;
 }
 
-.hpicon {
-  text-align: center;
+.icon {
+  margin-top: 10px;
+  height: 15px
 }
 
-.githubIcon {
-  width: 16px;
+.othersMessage {
+  vertical-align: 0.2rem;
+
+}
+
+.othersLink {
+  text-decoration: none;
 }
