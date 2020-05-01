@@ -21,14 +21,14 @@ $(() => {
   $(".toSetting").on("click", () => {
     $(".mainTab").hide();
     $(".settingTab").show();
-    $(this).addClass("active");
+    $(".toSetting").addClass("active");
     $(".toHome").removeClass("active");
   });
 
   $(".toHome").on("click", () => {
     $(".settingTab").hide();
     $(".mainTab").show();
-    $(this).addClass("active");
+    $(".toHome").addClass("active");
     $(".toSetting").removeClass("active");
   });
 
@@ -116,6 +116,16 @@ const getAdditionalQuery = (min, max) => {
       if (impactFactor >= min && impactFactor <= max) {
         let ISSN = sheet[i][columnNumberISSN];
         let row = $("<div></div>", { addClass: "selectRow" });
+        let holdBox = $("<img class='holdBox' src='icons/bookmark_off.svg'>")
+        holdBox.on("click", function() {
+          if ($(this).hasClass("bookmarked")) {
+            $(this).attr("src", "icons/bookmark_off.svg")
+            $(this).removeClass("bookmarked")
+          } else {
+            $(this).attr("src", "icons/bookmark_on.svg")
+            $(this).addClass("bookmarked")
+          }
+        })
         let checkBox = $("<input>", {
           addClass: "rowCheckBox",
           type: "checkbox",
@@ -129,11 +139,12 @@ const getAdditionalQuery = (min, max) => {
         journalImpactFactor.text(sheet[i][columnNumberImpactFactor]);
         let journalISSN = $("<div></div>", { addClass: "journalISSN" });
         journalISSN.text(ISSN);
+        row.append(holdBox)
         row.append(checkBox);
         row.append(journalImpactFactor);
         row.append(journalISSN);
         row.append(journalTitle);
-        $(".journalSelect").append(row);
+        $(".selectRows").append(row);
       } else if (impactFactor < min) {
         console.log(min + " > " + impactFactor);
         break;
@@ -153,12 +164,14 @@ const getAdditionalQuery = (min, max) => {
 };
 
 const searchWithWord = () => {
-  const word = $(".searchBox")[0].value
-  const reg = new RegExp(word)
+  const words = $(".searchBox")[0].value.split(" ").join("|")
   const rows = $(".selectRow")
+  const reg = new RegExp(words)
   for (let i=0; i<rows.length; i++) {
     if ($(rows[i]).children(".journalTitle").text().toLowerCase().search(reg) == -1) {
-      $(rows[i]).hide()
+      if (!$(rows[i]).children("img.holdBox").hasClass("bookmarked")) {
+        $(rows[i]).hide()
+      }
     } else {
       $(rows[i]).show()
     }
