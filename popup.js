@@ -132,6 +132,35 @@ const setHistory = async (newQuery) => {
   chrome.storage.local.set({history: history}, () => {})
 }
 
+const getCounter = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get((store) => {
+      if (store.counter) {
+        resolve(store.counter)
+      } else {
+        resolve(0)
+      }
+    });
+  })
+}
+
+const setCounter = async (newQuery) => {
+  let counter = await getCounter()
+  counter++
+  if (counter > 10 && counter%10 === 0) {
+    showRateMeDialog()
+  }
+  chrome.storage.local.set({counter: counter}, () => {})
+}
+
+const showRateMeDialog = () => {
+  if (window.confirm("If you are safisfied with this app, please rate me!")) {
+    window.open("https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog", "_blank")
+  } else {
+
+  }
+}
+
 const showHistory = async () => {
   let history = await getHistory()
   $(".historyLine").remove()
@@ -274,4 +303,5 @@ const popup = (query) => {
     const activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, { query: query });
   });
+  setCounter()
 };
