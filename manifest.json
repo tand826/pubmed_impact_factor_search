@@ -3,7 +3,7 @@
   "author": "Takumi Ando",
   "name": "PubMed Impact Factor Search",
   "description": "Add search words at PubMed search box.",
-  "version": "3.0",
+  "version": "3.1",
   "icons": {
     "32": "icons/icon_32.png",
     "48": "icons/icon_48.png",
@@ -12,7 +12,10 @@
   "content_security_policy": "script-src 'self' https://cdnjs.cloudflare.com https://ajax.googleapis.com; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["https://www.ncbi.nlm.nih.gov/*"],
+      "matches": [
+        "https://www.ncbi.nlm.nih.gov/*",
+        "https://pubmed.ncbi.nlm.nih.gov/*"
+      ],
       "js": ["contentscript.js"]
     }
   ],

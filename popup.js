@@ -144,20 +144,37 @@ const getCounter = () => {
   })
 }
 
-const setCounter = async (newQuery) => {
+const getMessageNotAllowed = () => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get((store) => {
+      if (store.messageNotAllowed) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
+    });
+  })
+}
+
+const setCounter = async () => {
   let counter = await getCounter()
+  let messageNotAllowed = await getMessageNotAllowed()
+  console.log(counter, messageNotAllowed)
   counter++
-  if (counter > 10 && counter%10 === 0) {
+  if (!messageNotAllowed && counter > 10 && counter%10 === 0) {
+    chrome.storage.local.set({"messageNotAllowed": true}, () => {})
     showRateMeDialog()
   }
   chrome.storage.local.set({counter: counter}, () => {})
 }
 
 const showRateMeDialog = () => {
-  if (window.confirm("If you are safisfied with this app, please rate me!")) {
+  if (window.confirm("Rate me if you are enjoying this app!")) {
     window.open("https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog", "_blank")
   } else {
-
+    if (window.confirm("I don't want to see this message anymore.")) {
+      chrome.storage.local.set({"messageNotAllowed": true}, () => {})
+    }
   }
 }
 
@@ -173,7 +190,10 @@ const showHistory = async () => {
 
     let historyDate = $("<div></div>", { addClass: "historyDate"})
     let date = history[i].date
-    historyDate.text(`${date.year}.${date.month}.${date.date} ${date.hour}.${date.min}.${date.sec}`)
+    let hour = date.hour.toString().padStart(2, 0)
+    let min = date.min.toString().padStart(2, 0)
+    let sec = date.sec.toString().padStart(2, 0)
+    historyDate.text(`${date.year}.${date.month}.${date.date} ${hour}.${min}.${sec}`)
     historyLine.append(historyDate)
 
     let historyLength = $("<div></div>", { addClass: "historyLength"})
