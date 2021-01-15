@@ -35,7 +35,7 @@ body {
 
 .tab.active {
   border-bottom: solid 3px lightsalmon;
-  font-size: 0.8rem
+  font-size: 0.8rem;
 }
 
 .tab img {
@@ -99,7 +99,7 @@ body {
 .holdBox {
   width: 15px;
   height: 15px;
-  padding-top: 1px
+  padding-top: 1px;
 }
 
 .checkboxIcon {
@@ -142,11 +142,11 @@ hr {
 .searchBox {
   width: 200px;
   display: none;
-  margin-bottom: 15px
+  margin-bottom: 15px;
 }
 
 .queryButton {
-  display: none
+  display: none;
 }
 
 .addQueryButton {
@@ -159,30 +159,30 @@ hr {
 }
 
 .historyLine:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
-.historyLine:nth-child(n+3) {
+.historyLine:nth-child(n + 3) {
   border-top: 1px solid lightgray;
   margin: 5px 0;
-  padding-top: 10px
+  padding-top: 10px;
 }
 
 .historyQuery {
   text-align: left;
-  width: 300px
+  width: 300px;
 }
 
 .historyDate {
   text-align: right;
   font-size: 0.7rem;
-  color: lightgray
+  color: lightgray;
 }
 
 .historyLength {
   text-align: right;
   font-size: 0.7rem;
-  color: lightgray
+  color: lightgray;
 }
 
 .help {
@@ -191,12 +191,11 @@ hr {
 
 .icon {
   margin-top: 10px;
-  height: 15px
+  height: 15px;
 }
 
 .othersMessage {
   vertical-align: 0.2rem;
-
 }
 
 .othersLink {
