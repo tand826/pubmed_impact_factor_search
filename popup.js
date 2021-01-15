@@ -33,15 +33,16 @@ $(() => {
   });
 
   $(".selectUpload").on("change", (e) => {
-    console.log(e.currentTarget);
     let fileReader = new FileReader();
     let file = e.currentTarget.files[0];
+    const msg = $(".csvSavedMessage")
     const year = e.currentTarget.parentElement
       .getAttribute("class")
       .replace("data", "")
       .split(" ")[1];
     fileReader.readAsText(file);
     fileReader.onload = () => {
+      msg.text(`${file.name} might be not available`)
       const results = $.csv.toArrays(fileReader.result);
       let journalData = {};
       journalData[year] = results;
@@ -49,6 +50,7 @@ $(() => {
         $(".checkboxIcon" + year).addClass("visible");
         $(".uploadIcon" + year).addClass("hidden");
       });
+      msg.text(`${file.name} : available csv file saved`)
     };
   });
 
@@ -107,7 +109,7 @@ const dataCheck = () => {
 
 const validateScores = (min, max) => {
   if (min >= max) {
-    alert("Your Min Score is larger than the Max Score!");
+    alert("Min Score must be smaller than the Max Score!");
   }
 };
 
