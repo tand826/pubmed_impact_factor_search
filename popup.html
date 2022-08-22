@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.8/jquery.csv.min.js"></script>
+    <script src="libs/jquery-3.4.1.min.js"></script>
+    <script src="libs/jquery.csv.min.js"></script>
     <script src="popup.js"></script>
     <link rel="stylesheet" href="popup.css" />
   </head>
+
   <body>
     <div class="header">
       <div class="title">PubMed Impact Factor Search</div>
@@ -27,29 +26,13 @@
         <div class="sliderName">
           Min = <output id="minScore" class="score">0</output>
         </div>
-        <input
-          id="minScoreSlider"
-          class="slider"
-          type="range"
-          value="0"
-          min="0"
-          max="100"
-          step="0.1"
-        />
+        <input id="minScoreSlider" class="slider" type="range" value="0" min="0" max="100" step="0.1" />
       </div>
       <div class="sliderBlock">
         <div class="sliderName">
           Max = <output id="maxScore" class="score">0</output>
         </div>
-        <input
-          id="maxScoreSlider"
-          class="slider"
-          type="range"
-          value="0"
-          min="0"
-          max="103"
-          step="0.1"
-        />
+        <input id="maxScoreSlider" class="slider" type="range" value="0" min="0" max="103" step="0.1" />
       </div>
       <div class="button checkButton">
         <button id="checkButton">Check</button>
@@ -77,18 +60,9 @@
             <label for="upload2020">
               <img src="icons/upload.svg" class="uploadIcon uploadIcon2020" />
             </label>
-            <label for="upload2020"
-              ><img
-                src="icons/checkbox.png"
-                class="checkboxIcon checkboxIcon2020"
-              />
+            <label for="upload2020"><img src="icons/checkbox.png" class="checkboxIcon checkboxIcon2020" />
             </label>
-            <input
-              type="file"
-              name="upload2020"
-              id="upload2020"
-              class="selectUpload upload2020"
-            />
+            <input type="file" name="upload2020" id="upload2020" class="selectUpload upload2020" />
             <img src="icons/trash.png" class="trashIcon trash2020" />
           </div>
 
@@ -98,18 +72,9 @@
             <label for="upload2019">
               <img src="icons/upload.svg" class="uploadIcon uploadIcon2019" />
             </label>
-            <label for="upload2019"
-              ><img
-                src="icons/checkbox.png"
-                class="checkboxIcon checkboxIcon2019"
-              />
+            <label for="upload2019"><img src="icons/checkbox.png" class="checkboxIcon checkboxIcon2019" />
             </label>
-            <input
-              type="file"
-              name="upload2019"
-              id="upload2019"
-              class="selectUpload upload2019"
-            />
+            <input type="file" name="upload2019" id="upload2019" class="selectUpload upload2019" />
             <img src="icons/trash.png" class="trashIcon trash2019" />
           </div>
 
@@ -119,18 +84,9 @@
             <label for="upload2018">
               <img src="icons/upload.svg" class="uploadIcon uploadIcon2018" />
             </label>
-            <label for="upload2018"
-              ><img
-                src="icons/checkbox.png"
-                class="checkboxIcon checkboxIcon2018"
-              />
+            <label for="upload2018"><img src="icons/checkbox.png" class="checkboxIcon checkboxIcon2018" />
             </label>
-            <input
-              type="file"
-              name="upload2018"
-              id="upload2018"
-              class="selectUpload upload2018"
-            />
+            <input type="file" name="upload2018" id="upload2018" class="selectUpload upload2018" />
             <img src="icons/trash.png" class="trashIcon trash2018" />
           </div>
 
@@ -140,18 +96,9 @@
             <label for="upload2017">
               <img src="icons/upload.svg" class="uploadIcon uploadIcon2017" />
             </label>
-            <label for="upload2017"
-              ><img
-                src="icons/checkbox.png"
-                class="checkboxIcon checkboxIcon2017"
-              />
+            <label for="upload2017"><img src="icons/checkbox.png" class="checkboxIcon checkboxIcon2017" />
             </label>
-            <input
-              type="file"
-              name="upload2017"
-              id="upload2017"
-              class="selectUpload upload2017"
-            />
+            <input type="file" name="upload2017" id="upload2017" class="selectUpload upload2017" />
             <img src="icons/trash.png" class="trashIcon trash2017" />
           </div>
 
@@ -167,7 +114,9 @@
           </a>
         </div>
         <div class="iconRow">
-          <a class="othersLink" href="https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog" target="_blank">
+          <a class="othersLink"
+            href="https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog"
+            target="_blank">
             <img class="icon rateIcon" src="icons/rate.svg">
             <span class="othersMessage">Rate Me!</span>
           </a>
@@ -175,10 +124,11 @@
         <div class="version">
           <p class="version_p"></p>
         </div>
-        </div>
-        </div>
-      </div>
       </div>
     </div>
+    </div>
+    </div>
+    </div>
   </body>
+
 </html>

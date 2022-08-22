@@ -35,14 +35,11 @@ $(() => {
   $(".selectUpload").on("change", (e) => {
     let fileReader = new FileReader();
     let file = e.currentTarget.files[0];
-    const msg = $(".csvSavedMessage")
-    const year = e.currentTarget.parentElement
-      .getAttribute("class")
-      .replace("data", "")
-      .split(" ")[1];
+    const msg = $(".csvSavedMessage");
+    const year = e.currentTarget.parentElement.getAttribute("class").replace("data", "").split(" ")[1];
     fileReader.readAsText(file);
     fileReader.onload = () => {
-      msg.text(`${file.name} might be not available`)
+      msg.text(`${file.name} might be not available`);
       const results = $.csv.toArrays(fileReader.result);
       let journalData = {};
       journalData[year] = results;
@@ -50,7 +47,7 @@ $(() => {
         $(".checkboxIcon" + year).addClass("visible");
         $(".uploadIcon" + year).addClass("hidden");
       });
-      msg.text(`${file.name} : available csv file saved`)
+      msg.text(`${file.name} : available csv file saved`);
     };
   });
 
@@ -74,13 +71,13 @@ $(() => {
   chrome.storage.onChanged.addListener((changes, namespace) => {
     if (namespace == "local") {
       if (changes.history) {
-        showHistory()
+        showHistory();
       }
     }
-  })
+  });
 
   dataCheck();
-  showHistory()
+  showHistory();
 });
 
 const dataCheck = () => {
@@ -117,97 +114,100 @@ const getHistory = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get((store) => {
       if (store.history) {
-        resolve(store.history)
+        resolve(store.history);
       } else {
-        resolve(Array())
+        resolve(Array());
       }
     });
-  })
-}
+  });
+};
 
 const setHistory = async (newQuery) => {
-  let history = await getHistory()
-  history.push(newQuery)
+  let history = await getHistory();
+  history.push(newQuery);
   if (history.length > 5) {
-    history.shift()
+    history.shift();
   }
-  chrome.storage.local.set({history: history}, () => {})
-}
+  chrome.storage.local.set({ history: history }, () => {});
+};
 
 const getCounter = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get((store) => {
       if (store.counter) {
-        resolve(store.counter)
+        resolve(store.counter);
       } else {
-        resolve(0)
+        resolve(0);
       }
     });
-  })
-}
+  });
+};
 
 const getMessageNotAllowed = () => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get((store) => {
       if (store.messageNotAllowed) {
-        resolve(true)
+        resolve(true);
       } else {
-        resolve(false)
+        resolve(false);
       }
     });
-  })
-}
+  });
+};
 
 const setCounter = async () => {
-  let counter = await getCounter()
-  let messageNotAllowed = await getMessageNotAllowed()
-  console.log(counter, messageNotAllowed)
-  counter++
-  if (!messageNotAllowed && counter > 10 && counter%10 === 0) {
-    chrome.storage.local.set({"messageNotAllowed": true}, () => {})
-    showRateMeDialog()
+  let counter = await getCounter();
+  let messageNotAllowed = await getMessageNotAllowed();
+  console.log(counter, messageNotAllowed);
+  counter++;
+  if (!messageNotAllowed && counter > 10 && counter % 10 === 0) {
+    chrome.storage.local.set({ messageNotAllowed: true }, () => {});
+    showRateMeDialog();
   }
-  chrome.storage.local.set({counter: counter}, () => {})
-}
+  chrome.storage.local.set({ counter: counter }, () => {});
+};
 
 const showRateMeDialog = () => {
   if (window.confirm("Rate me if you are enjoying this app!")) {
-    window.open("https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog", "_blank")
+    window.open(
+      "https://chrome.google.com/webstore/detail/pubmed-impact-factor-sear/amhcplabblldkpggfncgnemdbpafbfog",
+      "_blank"
+    );
   } else {
     if (window.confirm("I don't want to see this message anymore.")) {
-      chrome.storage.local.set({"messageNotAllowed": true}, () => {})
+      chrome.storage.local.set({ messageNotAllowed: true }, () => {});
     }
   }
-}
+};
 
 const showHistory = async () => {
-  let history = await getHistory()
-  $(".historyLine").remove()
-  for (let i=0; i<history.length; i++) {
-    let historyLine = $("<div></div>", { addClass: "historyLine"})
+  let history = await getHistory();
+  $(".historyLine").remove();
+  for (let i = 0; i < history.length; i++) {
+    let historyLine = $("<div></div>", { addClass: "historyLine" });
 
-    let historyQuery = $("<div></div>", { addClass: "historyQuery"})
-    historyQuery.text(history[i].query)
-    historyLine.append(historyQuery)
+    let historyQuery = $("<div></div>", { addClass: "historyQuery" });
+    historyQuery.text(history[i].query);
+    historyLine.append(historyQuery);
 
-    let historyDate = $("<div></div>", { addClass: "historyDate"})
-    let date = history[i].date
-    let hour = date.hour.toString().padStart(2, 0)
-    let min = date.min.toString().padStart(2, 0)
-    let sec = date.sec.toString().padStart(2, 0)
-    historyDate.text(`${date.year}.${date.month}.${date.date} ${hour}.${min}.${sec}`)
-    historyLine.append(historyDate)
+    let historyDate = $("<div></div>", { addClass: "historyDate" });
+    let date = history[i].date;
+    let hour = date.hour.toString().padStart(2, 0);
+    let min = date.min.toString().padStart(2, 0);
+    let sec = date.sec.toString().padStart(2, 0);
+    historyDate.text(`${date.year}.${date.month}.${date.date} ${hour}.${min}.${sec}`);
+    historyLine.append(historyDate);
 
-    let historyLength = $("<div></div>", { addClass: "historyLength"})
-    historyLength.text(`${history[i].length} Journals`)
-    historyLine.append(historyLength)
+    let historyLength = $("<div></div>", { addClass: "historyLength" });
+    historyLength.text(`${history[i].length} Journals`);
+    historyLine.append(historyLength);
 
     historyLine.on("click", () => {
-      popup(history[i].query)
-    })
-    $(".historyBlock").append(historyLine)
+      popup(history[i].query);
+    });
+    $(".historyBlock").append(historyLine);
   }
-}
+};
 
 const getAdditionalQuery = (min, max) => {
   const year = $("input[name='year']:checked").val();
@@ -218,21 +218,26 @@ const getAdditionalQuery = (min, max) => {
     const columnNumberISSN = columns.indexOf("ISSN");
     const columnNumberImpactFactor = columns.indexOf("Journal Impact Factor");
     const columnNumberJournalTitle = columns.indexOf("Full Journal Title");
+    const url = "https://github.com/tand826/pubmed_impact_factor_search/issues";
+    if ([columnNumberISSN, columnNumberImpactFactor, columnNumberJournalTitle].includes(-1)) {
+      console.log(`CSV format is updated. Please create an issue at ${url}`);
+      return;
+    }
     for (let i = 2; i < sheet.length; i++) {
       let impactFactor = Number(sheet[i][columnNumberImpactFactor]);
       if (impactFactor >= min && impactFactor <= max) {
         let ISSN = sheet[i][columnNumberISSN];
         let row = $("<div></div>", { addClass: "selectRow" });
-        let holdBox = $("<img class='holdBox' src='icons/bookmark_off.svg'>")
-        holdBox.on("click", function() {
+        let holdBox = $("<img class='holdBox' src='icons/bookmark_off.svg'>");
+        holdBox.on("click", function () {
           if ($(this).hasClass("bookmarked")) {
-            $(this).attr("src", "icons/bookmark_off.svg")
-            $(this).removeClass("bookmarked")
+            $(this).attr("src", "icons/bookmark_off.svg");
+            $(this).removeClass("bookmarked");
           } else {
-            $(this).attr("src", "icons/bookmark_on.svg")
-            $(this).addClass("bookmarked")
+            $(this).attr("src", "icons/bookmark_on.svg");
+            $(this).addClass("bookmarked");
           }
-        })
+        });
         let checkBox = $("<input>", {
           addClass: "rowCheckBox",
           type: "checkbox",
@@ -246,7 +251,7 @@ const getAdditionalQuery = (min, max) => {
         journalImpactFactor.text(Number(sheet[i][columnNumberImpactFactor]).toFixed(1));
         let journalISSN = $("<div></div>", { addClass: "journalISSN" });
         journalISSN.text(ISSN);
-        row.append(holdBox)
+        row.append(holdBox);
         row.append(checkBox);
         row.append(journalImpactFactor);
         row.append(journalISSN);
@@ -257,11 +262,11 @@ const getAdditionalQuery = (min, max) => {
         break;
       }
     }
-    $(".journalsTitle").css("display", "block")
-    $(".searchBox").css("display", "block")
-    $(".searchBox").on("keyup", searchWithWord)
-    $(".queryButton").css("display", "block")
-    $(".resultQuery").remove()
+    $(".journalsTitle").css("display", "block");
+    $(".searchBox").css("display", "block");
+    $(".searchBox").on("keyup", searchWithWord);
+    $(".queryButton").css("display", "block");
+    $(".resultQuery").remove();
     const resultQuery = $("<div></div>", { addClass: "resultQuery" });
     $(".journalSelect").append(resultQuery);
 
@@ -272,19 +277,19 @@ const getAdditionalQuery = (min, max) => {
 };
 
 const searchWithWord = () => {
-  const words = $(".searchBox")[0].value.split(" ").join("|")
-  const rows = $(".selectRow")
-  const reg = new RegExp(words)
-  for (let i=0; i<rows.length; i++) {
+  const words = $(".searchBox")[0].value.split(" ").join("|");
+  const rows = $(".selectRow");
+  const reg = new RegExp(words);
+  for (let i = 0; i < rows.length; i++) {
     if ($(rows[i]).children(".journalTitle").text().toLowerCase().search(reg) == -1) {
       if (!$(rows[i]).children("img.holdBox").hasClass("bookmarked")) {
-        $(rows[i]).hide()
+        $(rows[i]).hide();
       }
     } else {
-      $(rows[i]).show()
+      $(rows[i]).show();
     }
   }
-}
+};
 
 const addQuery = () => {
   let additionalQueries = Array();
@@ -298,9 +303,9 @@ const addQuery = () => {
   const history = {
     query: additionalQuery,
     date: getDate(),
-    length: additionalQueries.length
-  }
-  setHistory(history)
+    length: additionalQueries.length,
+  };
+  setHistory(history);
   const message = "Added query for " + additionalQueries.length + " journals";
   $(".resultQuery").text(message);
   popup(additionalQuery);
@@ -314,7 +319,7 @@ const getDate = () => {
     date: now.getDate(),
     hour: now.getHours(),
     min: now.getMinutes(),
-    sec: now.getSeconds()
+    sec: now.getSeconds(),
   };
   return date;
 };
@@ -325,5 +330,5 @@ const popup = (query) => {
     const activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, { query: query });
   });
-  setCounter()
+  setCounter();
 };
