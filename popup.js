@@ -216,8 +216,31 @@ const getAdditionalQuery = (min, max) => {
     const sheet = res[year];
     const columns = sheet[1];
     const columnNumberISSN = columns.indexOf("ISSN");
-    const columnNumberImpactFactor = columns.indexOf("Journal Impact Factor");
-    const columnNumberJournalTitle = columns.indexOf("Full Journal Title");
+
+    let columnNumberImpactFactor;
+    const column_names_impact_factor = ["Journal Impact Factor", "2021 JIF", "2022 JIF"];
+    for (let i in column_names_impact_factor) {
+      let column_name = column_names_impact_factor[i];
+      if (columns.includes(column_name)) {
+        columnNumberImpactFactor = columns.indexOf(column_name);
+        break;
+      } else {
+        columnNumberImpactFactor = -1;
+      }
+    }
+
+    let columnNumberJournalTitle;
+    const column_names_journal_title = ["Full Journal Title", "Journal Name"];
+    for (let i in column_names_journal_title) {
+      let column_name = column_names_journal_title[i];
+      if (columns.includes(column_name)) {
+        columnNumberJournalTitle = columns.indexOf(column_name);
+        break;
+      } else {
+        columnNumberJournalTitle = -1;
+      }
+    }
+
     const url = "https://github.com/tand826/pubmed_impact_factor_search/issues";
     if ([columnNumberISSN, columnNumberImpactFactor, columnNumberJournalTitle].includes(-1)) {
       console.log(`CSV format is updated. Please create an issue at ${url}`);
