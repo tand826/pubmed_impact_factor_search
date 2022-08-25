@@ -51,11 +51,12 @@ $(() => {
     };
   });
 
-  $(".trashIcon").on("click", () => {
-    const year = this.parentElement.getAttribute("class").replace("data", "");
+  $(".trashIcon").on("click", function () {
+    const year = this.parentElement.getAttribute("class").replace("lists data", "");
     chrome.storage.local.remove(year, () => {
-      $(".uploadIcon" + year).addClass("visible");
-      $(".checkboxIcon" + year).addClass("hidden");
+      $(`.uploadIcon${year}`).addClass("visible");
+      $(`.checkboxIcon${year}`).addClass("hidden");
+      $(".csvSavedMessage").text(`removed csv of ${year}`);
     });
   });
 
