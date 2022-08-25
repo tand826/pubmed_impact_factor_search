@@ -320,7 +320,6 @@ const searchWithWord = () => {
     .value.split(" ")
     .map((x) => x.toLowerCase())
     .join("|");
-  console.log(words);
   const rows = $(".selectRow");
   const reg = new RegExp(words);
   for (let i = 0; i < rows.length; i++) {
