@@ -81,8 +81,12 @@ $(() => {
 });
 
 const dataCheck = () => {
-  let dataExists = [];
-  const years = ["2020", "2019", "2018", "2017"];
+  let dataExists;
+  const now = new Date().getFullYear();
+  const years = [];
+  for (let i = 4; i >= 0; i--) {
+    years.push(String(now - i));
+  }
   years.forEach((year) =>
     chrome.storage.local.getBytesInUse(year, (result) => {
       if (result) {
