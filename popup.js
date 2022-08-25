@@ -316,7 +316,11 @@ const getAdditionalQuery = (min, max) => {
 };
 
 const searchWithWord = () => {
-  const words = $(".searchBox")[0].value.split(" ").join("|");
+  const words = $(".searchBox")[0]
+    .value.split(" ")
+    .map((x) => x.toLowerCase())
+    .join("|");
+  console.log(words);
   const rows = $(".selectRow");
   const reg = new RegExp(words);
   for (let i = 0; i < rows.length; i++) {
