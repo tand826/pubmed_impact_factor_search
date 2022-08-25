@@ -52,7 +52,7 @@ $(() => {
   });
 
   $(".trashIcon").on("click", () => {
-    year = this.parentElement.getAttribute("class").replace("data", "");
+    const year = this.parentElement.getAttribute("class").replace("data", "");
     chrome.storage.local.remove(year, () => {
       $(".uploadIcon" + year).addClass("visible");
       $(".checkboxIcon" + year).addClass("hidden");
@@ -81,19 +81,14 @@ $(() => {
 });
 
 const dataCheck = () => {
-  let dataExists;
-  const now = new Date().getFullYear();
-  const years = [];
-  for (let i = 4; i >= 0; i--) {
-    years.push(String(now - i));
-  }
+  const years = ["2022", "2021", "2020", "2019", "2018", "2017"];
   years.forEach((year) =>
     chrome.storage.local.getBytesInUse(year, (result) => {
       if (result) {
-        $(".uploadIcon" + year).addClass("hidden");
-        dataExists.push(year);
+        // hide upload icon
+        $(`.uploadIcon${year}`).addClass("hidden");
       } else {
-        $(".checkboxIcon" + year).addClass("hidden");
+        $(`.checkboxIcon${year}`).addClass("hidden");
       }
     })
   );
@@ -101,7 +96,7 @@ const dataCheck = () => {
   years.forEach((year) =>
     chrome.storage.local.getBytesInUse(year, (result) => {
       if (result) {
-        $("#ranking" + year).prop("checked", true);
+        $(`#ranking${year}`).prop("checked", true);
         return true;
       }
     })
