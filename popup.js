@@ -39,8 +39,12 @@ $(() => {
     const year = e.currentTarget.parentElement.getAttribute("class").replace("data", "").split(" ")[1];
     fileReader.readAsText(file);
     fileReader.onload = () => {
-      msg.text(`${file.name} might be not available`);
       const results = $.csv.toArrays(fileReader.result);
+      const columns = results[1];
+      if (!isColumnsValid(columns)) {
+        msg.text(`${file.name} does not have proper columns.`);
+        return;
+      }
       let journalData = {};
       journalData[year] = results;
       chrome.storage.local.set(journalData, () => {
@@ -209,41 +213,53 @@ const showHistory = async () => {
   }
 };
 
+const isColumnsValid = (columns) => {
+  const columnNumberISSN = columns.indexOf("ISSN");
+
+  let columnNumberImpactFactor;
+  const column_names_impact_factor = ["Journal Impact Factor", "2021 JIF", "2022 JIF"];
+  for (let i in column_names_impact_factor) {
+    let column_name = column_names_impact_factor[i];
+    if (columns.includes(column_name)) {
+      columnNumberImpactFactor = columns.indexOf(column_name);
+      break;
+    } else {
+      columnNumberImpactFactor = -1;
+    }
+  }
+
+  let columnNumberJournalTitle;
+  const column_names_journal_title = ["Full Journal Title", "Journal Name"];
+  for (let i in column_names_journal_title) {
+    let column_name = column_names_journal_title[i];
+    if (columns.includes(column_name)) {
+      columnNumberJournalTitle = columns.indexOf(column_name);
+      break;
+    } else {
+      columnNumberJournalTitle = -1;
+    }
+  }
+
+  const url = "https://github.com/tand826/pubmed_impact_factor_search/issues";
+  if ([columnNumberISSN, columnNumberImpactFactor, columnNumberJournalTitle].includes(-1)) {
+    $(".csvSavedMessage").text(`CSV format is updated. Please create an issue at ${url}`);
+    return false;
+  } else {
+    return { columnNumberISSN, columnNumberImpactFactor, columnNumberJournalTitle };
+  }
+};
+
 const getAdditionalQuery = (min, max) => {
   const year = $("input[name='year']:checked").val();
   $(".selectRow").remove();
   chrome.storage.local.get(year, (res) => {
     const sheet = res[year];
     const columns = sheet[1];
-    const columnNumberISSN = columns.indexOf("ISSN");
 
-    let columnNumberImpactFactor;
-    const column_names_impact_factor = ["Journal Impact Factor", "2021 JIF", "2022 JIF"];
-    for (let i in column_names_impact_factor) {
-      let column_name = column_names_impact_factor[i];
-      if (columns.includes(column_name)) {
-        columnNumberImpactFactor = columns.indexOf(column_name);
-        break;
-      } else {
-        columnNumberImpactFactor = -1;
-      }
-    }
-
-    let columnNumberJournalTitle;
-    const column_names_journal_title = ["Full Journal Title", "Journal Name"];
-    for (let i in column_names_journal_title) {
-      let column_name = column_names_journal_title[i];
-      if (columns.includes(column_name)) {
-        columnNumberJournalTitle = columns.indexOf(column_name);
-        break;
-      } else {
-        columnNumberJournalTitle = -1;
-      }
-    }
-
-    const url = "https://github.com/tand826/pubmed_impact_factor_search/issues";
-    if ([columnNumberISSN, columnNumberImpactFactor, columnNumberJournalTitle].includes(-1)) {
-      console.log(`CSV format is updated. Please create an issue at ${url}`);
+    const column_is_valid = isColumnsValid(columns);
+    if (column_is_valid) {
+      ({ columnNumberISSN, columnNumberImpactFactor, columnNumberJournalTitle } = column_is_valid);
+    } else {
       return;
     }
     for (let i = 2; i < sheet.length; i++) {
