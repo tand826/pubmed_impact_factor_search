@@ -40,8 +40,16 @@ $(() => {
     fileReader.readAsText(file);
     fileReader.onload = () => {
       const results = $.csv.toArrays(fileReader.result);
-      const columns = results[1];
-      if (!isColumnsValid(columns)) {
+      let columns;
+      for (let i = 0; i < 10; i++) {
+        columns = isColumnsValid(results[i]);
+        console.log(columns);
+        if (columns) {
+          console.log(`columns row= ${i}`);
+          break;
+        }
+      }
+      if (!columns) {
         msg.text(`${file.name} does not have proper columns.`);
         return;
       }
@@ -229,7 +237,7 @@ const isColumnsValid = (columns) => {
   }
 
   let columnNumberJournalTitle;
-  const column_names_journal_title = ["Full Journal Title", "Journal Name"];
+  const column_names_journal_title = ["Full Journal Title", "Journal Name", "Journal name"];
   for (let i in column_names_journal_title) {
     let column_name = column_names_journal_title[i];
     if (columns.includes(column_name)) {
